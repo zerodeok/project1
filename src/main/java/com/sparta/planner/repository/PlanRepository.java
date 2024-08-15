@@ -8,6 +8,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static java.time.LocalTime.now;
 
@@ -46,6 +47,24 @@ public class PlanRepository {
 
         return plan;
     }
+
+    public Plan findId(int id) {
+
+        String sql = "SELECT * FROM PLAN WHERE plan_id = ? ";
+        return jdbcTemplate.query(sql,resultSet -> {
+            if (resultSet.next()){
+                Plan plan = new Plan();
+                plan.setPlanId(resultSet.getLong("plan_id"));
+                plan.setManager(resultSet.getString("manager"));
+                return plan;
+            }else {
+                return null;
+            }
+        } ,id);
+
+    }
+
+
 }
 
 

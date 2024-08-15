@@ -2,6 +2,7 @@ package com.sparta.planner.entity;
 
 import com.sparta.planner.dto.requestDto.PlanRequestDto;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import java.util.Date;
 
 @Getter
 @Setter
+//@NoArgsConstructor
 public class Plan {
     Long planId;          //plan 아이디
     String password;        //비밀번호
@@ -21,6 +23,9 @@ public class Plan {
         this.password = planRequestDto.getPassword();
         this.cntn = planRequestDto.getCntn();
         this.manager = planRequestDto.getManager();
+
+    }
+    public Plan(){
 
     }
 }

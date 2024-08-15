@@ -30,4 +30,10 @@ public class PlanService {
 
         return planResponseDto;
     }
+
+    public Plan searchFindById(int id) {
+        PlanRepository planRepository = new PlanRepository(jdbcTemplate);
+        return planRepository.findId(id);
+    }
+
 }
