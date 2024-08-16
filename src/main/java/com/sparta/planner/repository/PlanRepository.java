@@ -1,16 +1,19 @@
 package com.sparta.planner.repository;
 
+import com.sparta.planner.dto.requestDto.PlanRequestDto;
+import com.sparta.planner.dto.responseDto.PlanResponseDto;
 import com.sparta.planner.entity.Plan;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.util.List;
-
-import static java.time.LocalTime.now;
 
 public class PlanRepository {
 
@@ -48,7 +51,7 @@ public class PlanRepository {
         return plan;
     }
 
-    public Plan findId(int id) {
+    public Plan findId(Long id) {
 
         String sql = "SELECT * FROM PLAN WHERE plan_id = ? ";
         return jdbcTemplate.query(sql,resultSet -> {
@@ -63,6 +66,37 @@ public class PlanRepository {
         } ,id);
 
     }
+
+
+    public void update(Long id, PlanRequestDto planRequestDto ){
+        String sql = " UPDATE plan SET manager = ?,cntn = ?, udt_dttm = ? WHERE id = ?";
+        jdbcTemplate.update(sql,planRequestDto.getManager(),planRequestDto.getCntn(),LocalDateTime.now(), id);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+//    public List<PlanResponseDto> searchAll(LocalDateTime udt_dttm,String manager) {
+//        String sql = "SELECT * FROM PLAN";
+//
+//        return jdbcTemplate.query(sql, new RowMapper<PlanResponseDto>() {
+//            @Override
+//            public PlanResponseDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+//                Long planid = rs.getLong("palnid");
+//                String manager = rs.getString("manager");
+//                String cntn = rs.getString("cntn");
+//                return new PlanResponseDto(planid, manager, cntn);
+//            }
+//        });
+//    }
 
 
 }

@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -28,9 +29,21 @@ public class PlannerController {
     }
 
     @GetMapping("/api/planner")
-    public Plan searchById(@RequestParam int id){
+    public Plan searchById(@RequestParam Long id){
         PlanService planService = new PlanService(jdbcTemplate);
         return planService.searchFindById(id);
     }
 
+    @PutMapping("/api/planner/{id}")
+    public Long updatePlan(@PathVariable("planId") long planId,@RequestBody PlanRequestDto planRequestDto){
+        PlanService planService = new PlanService(jdbcTemplate);
+        return planService.updatePlan(planId,planRequestDto);
+    }
+
+//
+//    @GetMapping("/api/planner")
+//    public List<PlanResponseDto> searchAll(LocalDateTime udt_dttm,String manager){
+//        PlanService planService = new PlanService(jdbcTemplate);
+//        return planService.searchByAll(udt_dttm,manager);
+//    }
 }

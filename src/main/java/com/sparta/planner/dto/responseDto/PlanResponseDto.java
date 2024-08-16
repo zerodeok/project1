@@ -28,4 +28,5 @@ public class PlanResponseDto {
         this.cntn = savePlan.getCntn();
         this.manager = savePlan.getManager();
     }
+
 }
